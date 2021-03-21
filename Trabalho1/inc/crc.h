@@ -44,3 +44,8 @@ short calcula_CRC(unsigned char *commands, int size) {
 	}
 	return crc;
 }
+
+bool verify_CRC(unsigned char *commands, int size, short crc){
+    short ref = calcula_CRC(commands, size);
+    return ref == crc;
+}

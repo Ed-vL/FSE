@@ -63,13 +63,16 @@ void menu()
   case 1:
     PScreen();
     menu();
+	break;
   case 2:
     TScreen();
     menu();
+	break;
   case 3:
     clear();
     clrtoeol();
     endwin();
+	break;
   }
 
 }

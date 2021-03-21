@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void turnOffFan();
+void turnOffResistor();
+
 void configGpio(){
   if(wiringPiSetup() != 0){
     printf("Erro ao configurar GPIO\n");
@@ -25,14 +28,14 @@ void activateFan(int pid){
     return;
   }
   softPwmWrite(5,pid * -1);
-  usleep(100000);
+  usleep(10000);
 }
 
 
 void activateResistor(int pid){
   turnOffFan();
   softPwmWrite(5,pid);
-  usleep(100000);
+  usleep(10000);
 }
 
 void turnOffResistor(){

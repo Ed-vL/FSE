@@ -32,14 +32,15 @@ void PScreen(){
     mvprintw(0,0,"Pressione ESC para retornar ao menu");
     Internaltemp = getTempUart(codeI,7);
     PotentiometerTemp = getTempUart(codeP, 7);
-    getPid(Internaltemp, PotentiometerTemp);
-    mvprintw(2,2,"TI: %2s.f Celsius\n",Internaltemp);
+    setReference(PotentiometerTemp);
+    pid = pidControl(Internaltemp);
+    mvprintw(2,2,"TI: %2.f Celsius\n",Internaltemp);
     mvprintw(3,2,"TR: %2.f Celsius\n",PotentiometerTemp);
-    mvprintw(4,2,"PID: %d Celsius\n",pid);
+    mvprintw(4,2,"PID: %d\n",pid);
     if(pid < 0){
-      setFan(pid);
+      activateFan(pid);
     } else if(pid > 0) {
-      setResistor(pid);
+      activateResistor(pid);
     }
     refresh();
     sleep(1);    
@@ -73,14 +74,15 @@ void TScreen(){
     entry = wgetch(T);
     mvprintw(0,0,"Pressione ESC para retornar ao menu");
     Internaltemp = getTempUart(codeI,7);
-    pid = getPid(Internaltemp,UserTemp);
+    setReference(UserTemp);
+    pid = pidControl(Internaltemp);
     mvprintw(2,2,"TI: %.2f Celsius\n",Internaltemp);
     mvprintw(3,2,"TR: %.2f Celsius\n",UserTemp);
-    mvprintw(4,2,"PID: %d Celsius\n",pid);
+    mvprintw(4,2,"PID: %d\n",pid);
     if(pid < 0){
-      setFan(pid);
+      activateFan(pid);
     } else if(pid > 0) {
-      setResistor(pid);
+      activateResistor(pid);
     }
     refresh();
     sleep(1);

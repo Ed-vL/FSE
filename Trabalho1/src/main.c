@@ -8,7 +8,8 @@ void trataSinal(int sig){
   switch(sig){
     case SIGINT:
       closeUart();
-      turnOff();
+      turnOffResistor();
+      turnOffFan();
   }
 }
 

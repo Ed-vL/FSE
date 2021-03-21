@@ -38,7 +38,7 @@ float getTempUart(char code, int size){
     tx_buffer[5] = 0x04;
     tx_buffer[6] = 0x03;
     short crc = calcula_CRC(tx_buffer, size);
-
+    short responseCrc;
     
     if (uart0_filestream != -1)
     {
@@ -52,7 +52,7 @@ float getTempUart(char code, int size){
         }
 
     }
-    usleep(1000);
+    usleep(100000);
     if (uart0_filestream != -1)
     {
         // Read up to 255 characters from the port if they are there
@@ -71,8 +71,15 @@ float getTempUart(char code, int size){
             //Bytes received
             rx_buffer[rx_length] = '\0';
             memcpy(&response, &rx_buffer[3], 4);
+            memcpy(&responseCrc,&rx_buffer[7],2);
         }
-        return response;
+    /*    if(verify_CRC(rx_buffer, 9, responseCrc)){
+            return response;
+        } else {
+            printf("Erro no CRC de resposta\n");
+            getTempUart(code,size);
+        }*/
+        
     }
     return response;
 }
