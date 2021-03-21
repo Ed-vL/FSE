@@ -18,20 +18,27 @@ void configGpio(){
   softPwmCreate(4,0,100);
 }
 
-void setFan(int pid){
-  if(pid > -40)
+void activateFan(int pid){
+  turnOffResistor();
+  if(pid > -40){
+    turnOffFan();
     return;
+  }
   softPwmWrite(5,pid * -1);
   usleep(100000);
 }
 
 
-void setResistor(int pid){
+void activateResistor(int pid){
+  turnOffFan();
   softPwmWrite(5,pid);
   usleep(100000);
 }
 
-void turnOff(){
-  softPwmWrite(4,0);
-  softPwmWrite(5,0);
+void turnOffResistor(){
+  softPwmWrite(4,1);
+}
+
+void turnOffFan(){
+  softPwmWrite(5,1);
 }

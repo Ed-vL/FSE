@@ -52,7 +52,7 @@ float getTempUart(char code, int size){
         }
 
     }
-    sleep(1);
+    usleep(1000);
     if (uart0_filestream != -1)
     {
         // Read up to 255 characters from the port if they are there
