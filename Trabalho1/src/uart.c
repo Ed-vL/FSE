@@ -8,6 +8,7 @@
 
 int uart0_filestream = -1;
 
+
 void openUart(){
     
     uart0_filestream = open("/dev/serial0", O_RDWR | O_NOCTTY | O_NDELAY);      //Open in non blocking read/write mode
@@ -29,7 +30,7 @@ void closeUart(){
     close(uart0_filestream);
 }
 
-float getTempUart(char code, int size){
+float getTempUart(char code, int size, int retries){
     float response = 0.0;
     unsigned char tx_buffer[200];
     tx_buffer[0] = 0x01;
@@ -59,10 +60,15 @@ float getTempUart(char code, int size){
     {
         // Read up to 255 characters from the port if they are there
         unsigned char rx_buffer[256];
+        unsigned char buffer[256];
         int rx_length = read(uart0_filestream, (void*)rx_buffer, 255);      //Filestream, buffer to store in, number of bytes to read (max)
         if (rx_length < 0)
         {
-            printf("Erro na leitura.\n"); //An error occured (will occur if there are no bytes)
+            if(retries > 0){
+                retries--;
+                response = getTempUart(code,size,retries);
+            }
+            
         }
         else if (rx_length == 0)
         {
@@ -74,11 +80,10 @@ float getTempUart(char code, int size){
             rx_buffer[rx_length] = '\0';
             memcpy(&response, &rx_buffer[3], 4);
             memcpy(&responseCrc,&rx_buffer[7],2);
-        }
-            //verify_CRC(rx_buffer, 9, responseCrc);
+            memcpy(buffer, &rx_buffer, 7);
+            verify_CRC(buffer, 7, responseCrc);
             return response;
-        
-        
+        }
     }
     return response;
 }

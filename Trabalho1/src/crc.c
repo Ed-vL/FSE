@@ -50,6 +50,5 @@ short calcula_CRC(unsigned char *commands, int size) {
 
 int verify_CRC(unsigned char *commands, int size, short crc){
     short ref = calcula_CRC(commands, size);
-    printf("CRC verify: %X\nCRC lido: %X",ref,crc);
     return ref == crc;
 }

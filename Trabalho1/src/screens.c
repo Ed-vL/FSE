@@ -14,10 +14,15 @@
 
 int startx = 0;
 int starty = 0;
-FILE *f;
+
+int resistor, fan;
+
+FILE *t, *a;
 void configCsv(){
-  f = fopen("Relatorio.csv", "w+");
-  fprintf(f,"Data/Hora, TR, TI, TE, PID\n");
+  t = fopen("Temperatura.csv", "w+");
+  a = fopen("Atuadores.csv", "w+");
+  fprintf(t,"Data/Hora, TR, TI, TE\n");
+  fprintf(a,"Data/Hora, Resistor, Ventoinha\n");
 }
 
 void PScreen(){
@@ -43,10 +48,13 @@ void PScreen(){
     timeinfo = localtime (&rawtime);
     entry = wgetch(P);
     mvprintw(0,0,"Pressione ESC para retornar ao menu");
-    Internaltemp = getTempUart(codeI,7);
-    PotentiometerTemp = getTempUart(codeP, 7);
+    Internaltemp = getTempUart(codeI,7,10);
+    PotentiometerTemp = getTempUart(codeP, 7,10);
     bme280ReadValues(&TE, &PA, &HA);
     FTE = (float)(TE/100);
+    if(PotentiometerTemp < (TE/100)){
+      PotentiometerTemp = (TE/100);
+    }
     setReference(PotentiometerTemp);
     pid = pidControl(Internaltemp);
     mvprintw(2,2,"TI: %.2f Celsius\n",Internaltemp);
@@ -62,13 +70,23 @@ void PScreen(){
     lcdLoc(LINE2);
     typeln("TE: ");
     typeFloat(FTE);
-    fprintf(f, "%d-%d-%d %d:%d:%d,%.2f,%.2f,%d,%d%%\n", 
-    timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,PotentiometerTemp,Internaltemp,TE/100,pid);
     if(pid < 0){
+      resistor = 0;
+      if(pid > -40){
+        fan = 0;
+      } else {
+        fan = pid * -1;
+      }
       activateFan(pid);
     } else if(pid > 0) {
+      resistor = pid;
+      fan = 0;
       activateResistor(pid);
     }
+    fprintf(t, "%d-%d-%d %d:%d:%d,%.2f,%.2f,%d\n", 
+    timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,PotentiometerTemp,Internaltemp,TE/100);
+    fprintf(a, "%d-%d-%d %d:%d:%d,%d,%d\n", 
+    timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,resistor,fan);
     refresh();
     sleep(1);    
   } while(entry != 27);
@@ -79,7 +97,6 @@ void PScreen(){
 void TScreen(){
   time_t rawtime;
   struct tm * timeinfo;
-  
   WINDOW *T;
   float UserTemp, FTE;
   int pid = 0;
@@ -103,10 +120,14 @@ void TScreen(){
     timeinfo = localtime (&rawtime);
     entry = wgetch(T);
     mvprintw(0,0,"Pressione ESC para retornar ao menu");
-    Internaltemp = getTempUart(codeI,7);
+    Internaltemp = getTempUart(codeI,7,10);
+    bme280ReadValues(&TE, &PA, &HA);
+    if(UserTemp < (TE/100)){
+      UserTemp = (TE/100);
+    }
+
     setReference(UserTemp);
     pid = pidControl(Internaltemp);
-    bme280ReadValues(&TE, &PA, &HA);
     FTE = (float)(TE/100);
     mvprintw(2,2,"TI: %.2f Celsius\n",Internaltemp);
     mvprintw(3,2,"TR: %.2f Celsius\n",UserTemp);
@@ -121,13 +142,23 @@ void TScreen(){
     lcdLoc(LINE2);
     typeln("TE: ");
     typeFloat(FTE);
-    fprintf(f, "%d-%d-%d %d:%d:%d,%.2f,%.2f,%d,%d%%\n", 
-    timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,UserTemp,Internaltemp,TE/100,pid);
     if(pid < 0){
+      resistor = 0;
+      if(pid > -40){
+        fan = 0;
+      } else {
+        fan = pid * -1;
+      }
       activateFan(pid);
     } else if(pid > 0) {
+      resistor = pid;
+      fan = 0;
       activateResistor(pid);
     }
+    fprintf(t, "%d-%d-%d %d:%d:%d,%.2f,%.2f,%d\n", 
+    timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,UserTemp,Internaltemp,TE/100);
+    fprintf(a, "%d-%d-%d %d:%d:%d,%d,%d\n", 
+    timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,resistor,fan);
     refresh();
     sleep(1);
   } while(entry != 27);
