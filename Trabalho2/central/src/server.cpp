@@ -14,6 +14,7 @@ bool getAlarm(){
 
 void triggerAlarm(){
 	cout << "WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
+	//system("omxplayer example.mp3");
 }
 
 void TrataClienteTCP(int socketCliente) {
