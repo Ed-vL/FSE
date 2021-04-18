@@ -8,12 +8,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <iostream>
 
 #define servidorPorta 3001
-#define IP_Servidor "192.168.15.70"
+#define IP_Servidor "192.168.15.52"
 
-using namespace std;
+ 
 
 void createClient();
 

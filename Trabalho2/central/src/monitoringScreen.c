@@ -1,5 +1,5 @@
-#include "../inc/monitoringScreen.hpp"
-#include "../inc/client.hpp"
+#include "../inc/monitoringScreen.h"
+#include "../inc/client.h"
 
 int startx = 0;
 int starty = 0;

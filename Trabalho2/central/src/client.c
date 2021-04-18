@@ -1,4 +1,4 @@
-#include "../inc/client.hpp"
+#include "../inc/client.h"
 
 int clientSocket;
 

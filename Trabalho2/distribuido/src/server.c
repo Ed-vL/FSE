@@ -1,12 +1,14 @@
 #include "../inc/server.h"
 #include "../inc/bme280.h"
+#include "../inc/gpio.h"
 
 void TrataClienteTCP(int socketCliente) {
 	
 	char buffer[16];
     char res[16];
 	int tamanhoRecebido;
-    int T,H,P;
+    int T = 23,H = 12,P;
+	int l,a, toggle;
 
 	if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
 		printf("Erro no recv()\n");
@@ -14,14 +16,27 @@ void TrataClienteTCP(int socketCliente) {
     switch(buffer[0]){
         case 'T':
             //bme280ReadValues(&T, &P, &H);
-            res[0] = 45;
+            res[0] = T;
             send(socketCliente,res,2,0);
             break;
         case 'H':
             //bme280ReadValues(&T, &P, &H);
-            res[0] = 34;
+            res[0] = H;
             send(socketCliente,res,2,0);
             break;
+		case 'L':
+			l = buffer[1];
+			//res[0] = toggleLight(l);
+			res[0] = 1;
+			send(socketCliente,res,2,0);
+			break;
+		case 'A':
+			a = buffer[1];
+			//res[0] = toggleAC(l);
+			res[0] = 1;
+			send(socketCliente,res,2,0);
+			break;
+
     }
 
 	while (tamanhoRecebido > 0) {

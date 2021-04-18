@@ -1,5 +1,5 @@
-#include "../inc/tempScreen.hpp"
-#include "../inc/client.hpp"
+#include "../inc/tempScreen.h"
+#include "../inc/client.h"
 
 
 void TempScreen(){

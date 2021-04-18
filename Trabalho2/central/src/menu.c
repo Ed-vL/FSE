@@ -1,11 +1,9 @@
-#include "../inc/menu.hpp"
-#include "../inc/monitoringScreen.hpp"
-#include "../inc/actionScreen.hpp"
-#include "../inc/client.hpp"
-#include "../inc/tempScreen.hpp"
-#include "../inc/alarmScreen.hpp"
-
-using namespace std;
+#include "../inc/menu.h"
+#include "../inc/monitoringScreen.h"
+#include "../inc/actionScreen.h"
+#include "../inc/client.h"
+#include "../inc/tempScreen.h"
+#include "../inc/alarmScreen.h"
 
 char *choices[] = { 
 			"Monitorar Portas, Janelas e Lâmpadas",

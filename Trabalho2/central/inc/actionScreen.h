@@ -13,4 +13,6 @@ void ActionScreen();
 
 void print_options(WINDOW *menu_win, int highlight);
 
+void clearLine(int y);
+
 #endif

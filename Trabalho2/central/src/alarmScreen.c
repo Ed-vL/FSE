@@ -1,5 +1,5 @@
-#include "../inc/alarmScreen.hpp"
-#include "../inc/server.hpp"
+#include "../inc/alarmScreen.h"
+#include "../inc/server.h"
 
 
 char *option[] = { 

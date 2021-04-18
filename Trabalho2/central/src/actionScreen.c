@@ -1,5 +1,5 @@
-#include "../inc/actionScreen.hpp"
-#include "../inc/client.hpp"
+#include "../inc/actionScreen.h"
+#include "../inc/client.h"
 
 
 char *options[] = { 
@@ -14,6 +14,13 @@ char *options[] = {
 
 int n_options = sizeof(options) / sizeof(char *);
 int L1control = 0,L2control = 0, L3control = 0, L4control = 0, A1control = 0, A2control = 0;
+
+void clearLine(int y)
+{
+    move(y, 0);          
+    clrtoeol();                
+}
+
 void print_options(WINDOW *menu_win, int highlight)
 {
 	int x, y, i;	
@@ -36,6 +43,7 @@ void print_options(WINDOW *menu_win, int highlight)
 void ActionScreen(){
   int startx = 0;
   int starty = 0;
+  int x,y;
   char * message;
   WINDOW *menu_win;
   int highlight = 1;
@@ -82,14 +90,20 @@ void ActionScreen(){
     res = sendMessage("L1\0");
     if(res){
         if(!L1control){
+            clearLine(1);
             mvprintw(1, 0,"Lâmpada 01 acionada!");
             refresh();
             L1control = 1;
         } else {
+            clearLine(1);
             mvprintw(1, 0,"Lâmpada 01 desligada!");
             refresh();
             L1control = 0;
         }
+    } else {
+        clearLine(1);
+        mvprintw(1, 0,"Erro ao acionar Lâmpada 01");
+        refresh();
     }
     ActionScreen();
 	break;
@@ -97,14 +111,20 @@ void ActionScreen(){
     res = sendMessage("L2\0");
     if(res){
         if(!L2control){
+            clearLine(2);
             mvprintw(2, 0,"Lâmpada 02 acionada!");
             refresh();
             L2control = 1;
         } else {
+            clearLine(2);
             mvprintw(2, 0,"Lâmpada 02 desligada!");
             refresh();
             L2control = 0;
         }
+    } else {
+        clearLine(2);
+        mvprintw(2, 0,"Erro ao acionar Lâmpada 02");
+        refresh();
     }
     ActionScreen();
 	break;
@@ -112,14 +132,20 @@ void ActionScreen(){
     res = sendMessage("L3\0");
     if(res){
         if(!L3control){
+            clearLine(3);
             mvprintw(3, 0,"Lâmpada 03 acionada!");
             refresh();
             L3control = 1;
         } else {
+            clearLine(3);
             mvprintw(3, 0,"Lâmpada 03 desligada!");
             refresh();
             L3control = 0;
         }
+    } else {
+        clearLine(3);
+        mvprintw(3, 0,"Erro ao acionar Lâmpada 03");
+        refresh();
     }
     ActionScreen();
 	break;
@@ -127,14 +153,20 @@ void ActionScreen(){
     res = sendMessage("L4\0");
     if(res){
         if(!L4control){
+            clearLine(4);
             mvprintw(4, 0,"Lâmpada 04 acionada!");
             refresh();
             L4control = 1;
         } else {
+            clearLine(4);
             mvprintw(4, 0,"Lâmpada 04 desligada!");
             refresh();
             L4control = 0;
         }
+    } else {
+        clearLine(4);
+        mvprintw(4, 0,"Erro ao acionar Lâmpada 04");
+        refresh();
     }
     ActionScreen();
 	break;
@@ -143,14 +175,20 @@ void ActionScreen(){
     res = sendMessage("A1\0");
     if(res){
         if(!A1control){
+            clearLine(5);
             mvprintw(5, 0,"Ar-Condicionado 01 acionada!");
             refresh();
             A1control = 1;
         } else {
+            clearLine(5);
             mvprintw(5, 0,"Ar-Condicionado 01 desligada!");
             refresh();
             A1control = 0;
         }
+    } else {
+        clearLine(5);
+        mvprintw(5, 0,"Erro ao acionar Ar-Condicionado 01");
+        refresh();
     }
     ActionScreen();
 	break;
@@ -158,14 +196,20 @@ void ActionScreen(){
     res = sendMessage("A2\0");
     if(res){
         if(!A2control){
+            clearLine(6);
             mvprintw(6, 0,"Ar-Condicionado 02 acionada!");
             refresh();
             A2control = 1;
         } else {
+            clearLine(6);
             mvprintw(6, 0,"Ar-Condicionado 02 desligada!");
             refresh();
             A2control = 0;
         }
+    } else {
+        clearLine(6);
+        mvprintw(6, 0,"Erro ao acionar Ar-Condicionado 02");
+        refresh();
     }
     ActionScreen();
 	break;

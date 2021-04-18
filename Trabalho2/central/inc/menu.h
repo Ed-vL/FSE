@@ -4,8 +4,7 @@
 #include <ncurses.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <iostream>
-#include <cstdio>
+#include <stdio.h>
 
 #define WIDTH 45
 #define HEIGHT 10 

@@ -5,8 +5,8 @@ INCDIR = $(BLDDIR)/inc
 SRCDIR = $(BLDDIR)/src
 OBJDIR = $(BLDDIR)/obj
 CFLAGS = -c -Wall -o2 -static -I $(INCDIR) 
-SRC = $(wildcard $(SRCDIR)/*.cpp)
-OBJ = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRC))
+SRC = $(wildcard $(SRCDIR)/*.c)
+OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 EXE = bin/bin
 
 all: clean $(EXE) 
@@ -14,7 +14,7 @@ all: clean $(EXE)
 $(EXE): $(OBJ) 
 	$(CC) $(LDFLAGS) $(OBJDIR)/*.o -lncurses -lpthread -lm -o $@
 
-$(OBJDIR)/%.o : $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o : $(SRCDIR)/%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $< -o $@
 

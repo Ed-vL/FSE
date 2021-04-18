@@ -1,6 +1,6 @@
-#include "../inc/server.hpp"
+#include "../inc/server.h"
 
-using namespace std;
+ 
 
 bool alarme;
 
@@ -13,7 +13,7 @@ bool getAlarm(){
 }
 
 void triggerAlarm(){
-	cout << "WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
+	printf("WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
 	//system("omxplayer example.mp3");
 }
 
