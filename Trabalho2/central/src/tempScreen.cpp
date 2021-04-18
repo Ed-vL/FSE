@@ -10,7 +10,7 @@ void TempScreen(){
   initscr();
   clear();
   noecho();
-  int entry, temp, umidity;
+  int entry, temp, humidity;
   startx = (80 - WIDTH) / 2;
   starty = (24 - HEIGHT) / 2;
   P = newwin(HEIGHT, WIDTH, starty, startx);
@@ -18,10 +18,10 @@ void TempScreen(){
   do{
    entry = wgetch(P);
    temp = sendMessage("T");
-   umidity = sendMessage("U");
+   humidity = sendMessage("H");
    mvprintw(0,0,"Pressione ESC para retornar");
    mvprintw(2,0,"Temperatura: %d Celsius",temp);
-   mvprintw(3,0,"Umidade: %d%%",umidity);
+   mvprintw(3,0,"Umidade: %d%%",humidity);
    refresh();
   } while(entry != 27);
   closeClient();

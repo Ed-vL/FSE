@@ -10,6 +10,7 @@ int sendMessage(char *message){
     char buffer[16];
 	unsigned int tamanhoMensagem;
 	int bytesRecebidos;
+	int res;
     tamanhoMensagem = strlen(message);
 
 	if(send(clientSocket, message, tamanhoMensagem, 0) != tamanhoMensagem)
@@ -18,7 +19,8 @@ int sendMessage(char *message){
     if((bytesRecebidos = recv(clientSocket, buffer, 16-1, 0)) <= 0)
 		printf("Não recebeu o total de bytes enviados\n");
     
-    return atoi(&buffer[0]);
+	res = buffer[0];
+    return res;
 }
 
 void createClient() {
