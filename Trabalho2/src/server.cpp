@@ -2,10 +2,18 @@
 
 using namespace std;
 
-bool alarm;
+bool alarme;
 
 void toggleAlarm(){
-	alarm = !alarm;
+	alarme = !alarme;
+}
+
+bool getAlarm(){
+	return alarme;
+}
+
+void triggerAlarm(){
+	cout << "WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
 }
 
 void TrataClienteTCP(int socketCliente) {
@@ -16,19 +24,23 @@ void TrataClienteTCP(int socketCliente) {
 	if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
 		printf("Erro no recv()\n");
     if(buffer[0]){
-
+		if(alarme){
+			triggerAlarm();
+		}
 	}
 	while (tamanhoRecebido > 0) {
-
 		if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
 			printf("Erro no recv()\n");
              if(buffer[0]){
+				if(alarme){
+					triggerAlarm();
+			}
 		}
 	}
 }
 
 void *initServer(void * arg) {
-	alarm = false;
+	alarme = false;
 	int servidorSocket;
 	int socketCliente;
 	struct sockaddr_in servidorAddr;

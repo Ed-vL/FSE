@@ -17,4 +17,9 @@ void TrataClienteTCP();
 void createServer();
 
 void *initServer();
+
+void toggleAlarm();
+
+bool getAlarm();
+
 #endif

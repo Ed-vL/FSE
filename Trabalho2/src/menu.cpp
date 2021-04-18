@@ -81,6 +81,7 @@ void menu()
 	menu();
   case 6:
     clear();
+	erase();
     endwin();
 	break;
   }

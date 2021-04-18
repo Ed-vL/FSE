@@ -11,13 +11,12 @@ char *options[] = {
             "Ar-Condicionado 02 (Quarto 02)",
             "Voltar"
 		  };
+
 int n_options = sizeof(options) / sizeof(char *);
 int L1control = 0,L2control = 0, L3control = 0, L4control = 0, A1control = 0, A2control = 0;
 void print_options(WINDOW *menu_win, int highlight)
 {
 	int x, y, i;	
-
-
 	x = 2;
 	y = 2;
 	box(menu_win, 0, 0);
@@ -35,6 +34,8 @@ void print_options(WINDOW *menu_win, int highlight)
 }
 
 void ActionScreen(){
+  int startx = 0;
+  int starty = 0;
   char * message;
   WINDOW *menu_win;
   int highlight = 1;

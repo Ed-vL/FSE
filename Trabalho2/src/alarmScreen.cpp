@@ -2,33 +2,34 @@
 #include "../inc/server.hpp"
 
 
-char *options[] = { 
+char *option[] = { 
 			"Alternar Alarme",
             "Voltar"
 		  };
           
-int n_options = sizeof(options) / sizeof(char *);
-int AlarmControl = 0;
-void print_options(WINDOW *menu_win, int highlight)
+int n_option = sizeof(option) / sizeof(char *);
+
+void print_option(WINDOW *menu_win, int highlight)
 {
 	int x, y, i;	
 	x = 2;
 	y = 2;
 	box(menu_win, 0, 0);
-	for(i = 0; i < n_options; ++i)
-	{	if(highlight == i + 1) /* High light the present choice */
+	for(i = 0; i < n_option; ++i)
+	{	if(highlight == i + 1)
 		{	wattron(menu_win, A_REVERSE); 
-			mvwprintw(menu_win, y, x, "%s", options[i]);
+			mvwprintw(menu_win, y, x, "%s", option[i]);
 			wattroff(menu_win, A_REVERSE);
 		}
 		else
-			mvwprintw(menu_win, y, x, "%s", options[i]);
+			mvwprintw(menu_win, y, x, "%s", option[i]);
 		++y;
 	}
 	wrefresh(menu_win);
 }
 
 void AlarmScreen(){
+  bool AlarmControl = getAlarm();
   int startx = 0;
   int starty = 0;
   WINDOW *menu_win;
@@ -43,20 +44,24 @@ void AlarmScreen(){
   menu_win = newwin(HEIGHT, WIDTH, starty, startx);
   keypad(menu_win, TRUE);
   mvprintw(0, 0, "Use as setas do teclado para navegar, presisone Enter para selecionar");
-  mvprintw(2, 0, "Alarme Desligado");
+  if(!AlarmControl){
+    mvprintw(2, 0, "Alarme Desligado");   
+  } else {
+    mvprintw(2, 0, "Alarme Ligado");
+  }
   refresh();
-  print_options(menu_win, highlight);
+  print_option(menu_win, highlight);
 	while(1)
 	{	c = wgetch(menu_win);
 		switch(c)
 		{	case KEY_UP:
 				if(highlight == 1)
-					highlight = n_options;
+					highlight = n_option;
 				else
 					--highlight;
 				break;
 			case KEY_DOWN:
-				if(highlight == n_options)
+				if(highlight == n_option)
 					highlight = 1;
 				else 
 					++highlight;
@@ -68,22 +73,13 @@ void AlarmScreen(){
 				refresh();
 				break;
 		}
-		print_options(menu_win, highlight);
+		print_option(menu_win, highlight);
 		if(choice != 0)
 			break;
 	}
   switch (choice) {
   case 1:
     toggleAlarm();
-    if(AlarmControl){
-        mvprintw(2, 0, "Alarme Desligado");
-        AlarmControl = 0;
-        refresh();
-    } else {
-         mvprintw(2, 0, "Alarme Ligado");
-         AlarmControl = 1;
-         refresh();
-    }
     AlarmScreen();
 	break;
   case 2:
