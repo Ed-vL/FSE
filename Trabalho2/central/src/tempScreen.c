@@ -14,7 +14,7 @@ void TempScreen(){
   startx = (80 - WIDTH) / 2;
   starty = (24 - HEIGHT) / 2;
   P = newwin(HEIGHT, WIDTH, starty, startx);
-  halfdelay(10);
+  halfdelay(100);
   do{
    entry = wgetch(P);
    temp = sendMessage("T");

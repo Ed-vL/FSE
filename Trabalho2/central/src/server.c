@@ -25,6 +25,7 @@ void TrataClienteTCP(int socketCliente) {
 	if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
 		printf("Erro no recv()\n");
 	res = buffer[0] - '0';
+	printf("Recebido: %d\n",res);
     if(res){
 		if(alarme){
 			triggerAlarm();
@@ -35,6 +36,7 @@ void TrataClienteTCP(int socketCliente) {
 			printf("Erro no recv()");
 			}
 		res = buffer[0] - '0';
+		printf("Recebido: %d\n",res);
         if(res){
 			if(alarme){
 				triggerAlarm();
@@ -76,9 +78,7 @@ void *initServer(void * arg) {
 			                      (struct sockaddr *) &clienteAddr, 
 			                      &clienteLength)) < 0)
 			printf("Falha no Accept\n");
-		
-		printf("Conexão do Cliente %s\n", inet_ntoa(clienteAddr.sin_addr));
-		
+				
 		TrataClienteTCP(socketCliente);
 		close(socketCliente);
 

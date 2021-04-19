@@ -13,7 +13,7 @@ char *options[] = {
 		  };
 
 int n_options = sizeof(options) / sizeof(char *);
-int L1control = 0,L2control = 0, L3control = 0, L4control = 0, A1control = 0, A2control = 0;
+
 
 void clearLine(int y)
 {
@@ -41,6 +41,8 @@ void print_options(WINDOW *menu_win, int highlight)
 }
 
 void ActionScreen(){
+  int L1control = sendMessage("ML1\0"),L2control = sendMessage("ML2\0"), L3control = sendMessage("ML3\0");
+  int L4control = sendMessage("ML4\0"), A1control = sendMessage("MA1\0"), A2control = sendMessage("MA2\0");
   int startx = 0;
   int starty = 0;
   int x,y;
