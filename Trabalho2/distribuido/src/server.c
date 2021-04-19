@@ -7,58 +7,66 @@ void TrataClienteTCP(int socketCliente) {
 	char buffer[16];
     char res[16];
 	int tamanhoRecebido;
-    int T = 23,H = 12,P;
+    int T,H,P;
 	int l,a, toggle;
 
-	if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
-		printf("Erro no recv()\n");
+	tamanhoRecebido = recv(socketCliente, buffer, 16, 0);
+		
+	printf("Recebido: %c %c\n",buffer[0],buffer[1]);
 
     switch(buffer[0]){
         case 'T':
-            //bme280ReadValues(&T, &P, &H);
+            bme280ReadValues(&T, &P, &H);
             res[0] = T;
             send(socketCliente,res,2,0);
             break;
         case 'H':
-            //bme280ReadValues(&T, &P, &H);
+            bme280ReadValues(&T, &P, &H);
             res[0] = H;
             send(socketCliente,res,2,0);
             break;
 		case 'L':
-			l = buffer[1];
-			//res[0] = toggleLight(l);
-			res[0] = 1;
+			l = buffer[1] - '0';
+			res[0] = toggleLight(l);
 			send(socketCliente,res,2,0);
 			break;
 		case 'A':
-			a = buffer[1];
-			//res[0] = toggleAC(l);
-			res[0] = 1;
+			a = buffer[1] - '0';
+			res[0] = toggleAC(a);
 			send(socketCliente,res,2,0);
 			break;
 
     }
-
 	while (tamanhoRecebido > 0) {
 		if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
 			printf("Erro no recv()\n");
-        
+        printf("Recebido: %c %c\n",buffer[0],buffer[1]);
         switch(buffer[0]){
             case 'T':
-               // bme280ReadValues(&T, &P, &H);
-                res[0] = 45;
+                bme280ReadValues(&T, &P, &H);
+                res[0] = T;
                 send(socketCliente,res,2,0);
                 break;
             case 'H':
-               // bme280ReadValues(&T, &P, &H);
-                res[0] =34;
+                bme280ReadValues(&T, &P, &H);
+                res[0] = H;
                 send(socketCliente,res,2,0);
                 break;
+			case 'L':
+				l = buffer[1] - '0';
+				res[0] = toggleLight(l);
+				send(socketCliente,res,2,0);
+				break;
+			case 'A':
+				a = buffer[1] - '0';
+				res[0] = toggleAC(a);
+				send(socketCliente,res,2,0);
+				break;
         }
 	}
 }
 
-void *initServer(void * arg) {
+void *initServer() {
 	int servidorSocket;
 	int socketCliente;
 	struct sockaddr_in servidorAddr;
@@ -84,13 +92,13 @@ void *initServer(void * arg) {
 	if(listen(servidorSocket, 10) < 0)
 		printf("Falha no Listen\n");		
 
+
+
 	while(1) {
 		clienteLength = sizeof(clienteAddr);
-		if((socketCliente = accept(servidorSocket, 
-			                      (struct sockaddr *) &clienteAddr, 
-			                      &clienteLength)) < 0)
+		if((socketCliente = accept(servidorSocket, (struct sockaddr*) &clienteAddr, &clienteLength)) < 0)
 			printf("Falha no Accept\n");
-		
+
 		printf("Conexão do Cliente %s\n", inet_ntoa(clienteAddr.sin_addr));
 		
 		TrataClienteTCP(socketCliente);

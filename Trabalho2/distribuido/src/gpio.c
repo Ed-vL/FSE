@@ -1,6 +1,6 @@
-#include "../inc/Gpio.h"
+#include "../inc/gpio.h"
 
-/*void configGpio(){
+void configGpio(){
   if(wiringPiSetup() != 0){
     printf("Erro ao configurar GPIO\n");
     exit(0);
@@ -49,4 +49,4 @@ int toggleAC(int a)
         return 1;
     }
     return 0;
-}*/
+}

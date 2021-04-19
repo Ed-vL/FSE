@@ -17,8 +17,8 @@ int L1control = 0,L2control = 0, L3control = 0, L4control = 0, A1control = 0, A2
 
 void clearLine(int y)
 {
-    move(y, 0);          
-    clrtoeol();                
+    move(y, 0);
+    clrtoeol();
 }
 
 void print_options(WINDOW *menu_win, int highlight)

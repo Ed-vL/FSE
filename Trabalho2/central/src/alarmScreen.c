@@ -9,6 +9,12 @@ char *option[] = {
           
 int n_option = sizeof(option) / sizeof(char *);
 
+void clearLin(int y)
+{
+    move(y, 0);
+    clrtoeol();
+}
+
 void print_option(WINDOW *menu_win, int highlight)
 {
 	int x, y, i;	
@@ -45,8 +51,10 @@ void AlarmScreen(){
   keypad(menu_win, TRUE);
   mvprintw(0, 0, "Use as setas do teclado para navegar, presisone Enter para selecionar");
   if(!AlarmControl){
+	clearLin(2);
     mvprintw(2, 0, "Alarme Desligado");   
   } else {
+	clearLin(2);
     mvprintw(2, 0, "Alarme Ligado");
   }
   refresh();

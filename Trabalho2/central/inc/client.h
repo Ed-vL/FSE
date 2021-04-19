@@ -10,7 +10,7 @@
 #include <unistd.h>
 
 #define servidorPorta 3001
-#define IP_Servidor "192.168.15.52"
+#define IP_Servidor "192.168.15.70"
 
  
 
