@@ -13,22 +13,29 @@ bool getAlarm(){
 }
 
 void triggerAlarm(){
-	printf("WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
-	system("omxplayer ../media/alarm.mp3");
+	system("omxplayer alarm.mp3");
+}
+
+FILE *t;
+void configCsv(){
+  t = fopen("Relatorio.csv", "w+");
+  fprintf(t,"Data/Hora, Evento\n");
 }
 
 void TrataClienteTCP(int socketCliente) {
-	
+	time_t rawtime;
+  	struct tm * timeinfo;
 	char buffer[16];
 	int tamanhoRecebido;
 	int res;
 	if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
 		printf("Erro no recv()\n");
 	res = buffer[0] - '0';
-	printf("Recebido: %d\n",res);
     if(res){
 		if(alarme){
 			triggerAlarm();
+		    fprintf(t, "%d-%d-%d %d:%d:%d,Alarme disparado\n", 
+    		timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec);
 		}
 	}
 	while (tamanhoRecebido > 0) {
@@ -36,10 +43,11 @@ void TrataClienteTCP(int socketCliente) {
 			printf("Erro no recv()");
 			}
 		res = buffer[0] - '0';
-		printf("Recebido: %d\n",res);
         if(res){
 			if(alarme){
 				triggerAlarm();
+		    	fprintf(t, "%d-%d-%d %d:%d:%d,Alarme disparado\n", 
+    			timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec);
 			}
 		}
 	}

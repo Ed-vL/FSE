@@ -10,3 +10,7 @@
 - Após compilar, basta executar ``` make run```
 - Para limpar os binários gerados, execute ``` make clean```
 
+## Importante
+
+- É necessário executar primeiro o servidor central e então o distribuído.
+- Para desligar o servidor distribuído basta enviar um sinal (ou CTRL + C no terminal);
