@@ -245,6 +245,7 @@ void ActionScreen(){
 	break;
   case 7:
     closeClient();
+    fclose(t);
     clear();
     break;
   }
