@@ -5,20 +5,20 @@ void configGpio(){
     printf("Erro ao configurar GPIO\n");
     exit(0);
   }
-  pinMode(0,OUTPUT);
-  pinMode(1,OUTPUT);
-  pinMode(2,OUTPUT);
-  pinMode(3,OUTPUT);
-  pinMode(23,OUTPUT);
-  pinMode(24,OUTPUT);
-  pinMode(6,INPUT);
-  pinMode(25,INPUT);
-  pinMode(21,INPUT);
-  pinMode(22,INPUT);
-  pinMode(26,INPUT);
-  pinMode(27,INPUT);
-  pinMode(28,INPUT);
-  pinMode(29,INPUT);
+  pinMode(L1_pin,OUTPUT);
+  pinMode(L2_pin,OUTPUT);
+  pinMode(L3_pin,OUTPUT);
+  pinMode(L4_pin,OUTPUT);
+  pinMode(A1_pin,OUTPUT);
+  pinMode(A2_pin,OUTPUT);
+  pinMode(P1_pin,INPUT);
+  pinMode(P2_pin,INPUT);
+  pinMode(S1_pin,INPUT);
+  pinMode(S2_pin,INPUT);
+  pinMode(S3_pin,INPUT);
+  pinMode(S4_pin,INPUT);
+  pinMode(S5_pin,INPUT);
+  pinMode(S6_pin,INPUT);
 }
 
 
@@ -58,15 +58,15 @@ int pinTranslator(char cod, int num){
         case 'A':
             return num + 22;
         case 'P':
-            if(num == 1) return 6;
-            if(num == 2) return 25;
+            if(num == 1) return P1_pin;
+            if(num == 2) return P2_pin;
         case 'S':
-            if(num == 1) return 29;
-            if(num == 2) return 31;
-            if(num == 3) return 26;
-            if(num == 4) return 27;
-            if(num == 5) return 28;
-            if(num == 6) return 29;
+            if(num == 1) return S1_pin;
+            if(num == 2) return S2_pin;
+            if(num == 3) return S3_pin;
+            if(num == 4) return S4_pin;
+            if(num == 5) return S5_pin;
+            if(num == 6) return S6_pin;
     }
 }
 
