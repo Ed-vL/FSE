@@ -6,12 +6,13 @@
 
 int main(){
     createServer();
-    createClient();
     int bme = bme280Init(1, 0x76);
     if(bme < 0){
       printf("Erro ao inicializar BME280\n");
     }
     configGpio();
+    sleep(5);
+    createClient();
     watcher();
     pause();
     closeClient();
