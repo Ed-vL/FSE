@@ -36,7 +36,7 @@ void TrataClienteTCP(int socketCliente) {
 			res[0] = toggleAC(a);
 			send(socketCliente,res,2,0);
 			break;
-		case 'M'
+		case 'M':
 			cod = buffer[1];
 			num = buffer[2] - '0';
 			res[0] = getState(cod,num);
@@ -67,6 +67,11 @@ void TrataClienteTCP(int socketCliente) {
 				res[0] = toggleAC(a);
 				send(socketCliente,res,2,0);
 				break;
+			case 'M':
+			cod = buffer[1];
+			num = buffer[2] - '0';
+			res[0] = getState(cod,num);
+			send(socketCliente,res,2,0);
         }
 	}
 }
