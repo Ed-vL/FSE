@@ -3,7 +3,7 @@
 
 int startx = 0;
 int starty = 0;
-int L1 =1,L2 =1,L3 =1,L4 =1,A1 =1,A2 =1,P1 =1,P2 =1,S1 =1,S2 =1,S3 =1,S4 =1,S5 =1,S6 =1;
+int L1,L2,L3,L4 ,A1,A2,P1,P2,S1,S2,S3,S4,S5,S6;
 
 void getState(){
   L1 = sendMessage("ML1\0");
@@ -33,7 +33,7 @@ void MonitoringScreen(){
   startx = (80 - WIDTH) / 2;
   starty = (24 - HEIGHT) / 2;
   P = newwin(HEIGHT, WIDTH, starty, startx);
-  //getState();
+  getState();
   halfdelay(10);
   mvprintw(1,0,"Lâmpada 01 (Cozinha): %d",L1);
   mvprintw(2,0,"Lâmpada 02 (Sala): %d",L2);
