@@ -14,3 +14,4 @@
 
 - É necessário executar primeiro o servidor central e então o distribuído.
 - Para desligar o servidor distribuído basta enviar um sinal (ou CTRL + C no terminal);
+- Os endereços de IP configurados no projeto mudaram durante testes, talvez seja necessário validá-los em caso de erro
