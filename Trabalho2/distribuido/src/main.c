@@ -1,8 +1,8 @@
 #include "../inc/server.h"
 #include "../inc/bme280.h"
 #include "../inc/gpio.h"
-#include "../inc/client"
-#include "../inc/pinWatcher"
+#include "../inc/client.h"
+#include "../inc/pinWatcher.h"
 
 int main(){
     createServer();
