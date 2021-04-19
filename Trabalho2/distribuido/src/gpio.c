@@ -50,3 +50,28 @@ int toggleAC(int a)
     }
     return 0;
 }
+
+int pinTranslator(char cod, int num){
+    switch(cod){
+        case 'L':
+            return num - 1;
+        case 'A':
+            return num + 22;
+        case 'P':
+            if(num == 1) return 6;
+            if(num == 2) return 25;
+        case 'S':
+            if(num == 1) return 29;
+            if(num == 2) return 31;
+            if(num == 3) return 26;
+            if(num == 4) return 27;
+            if(num == 5) return 28;
+            if(num == 6) return 29;
+    }
+}
+
+int getState(char cod, int num){
+    int pin = pinTranslator(cod,num);
+    int state = digitalRead(pin);
+    return state;
+}

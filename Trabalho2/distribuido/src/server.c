@@ -8,7 +8,8 @@ void TrataClienteTCP(int socketCliente) {
     char res[16];
 	int tamanhoRecebido;
     int T,H,P;
-	int l,a, toggle;
+	int l,a, toggle, num;
+	char cod;
 
 	tamanhoRecebido = recv(socketCliente, buffer, 16, 0);
 		
@@ -35,7 +36,11 @@ void TrataClienteTCP(int socketCliente) {
 			res[0] = toggleAC(a);
 			send(socketCliente,res,2,0);
 			break;
-
+		case 'M'
+			cod = buffer[1];
+			num = buffer[2] - '0';
+			res[0] = getState(cod,num);
+			send(socketCliente,res,2,0);
     }
 	while (tamanhoRecebido > 0) {
 		if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)

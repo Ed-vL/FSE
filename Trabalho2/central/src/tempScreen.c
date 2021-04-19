@@ -20,7 +20,7 @@ void TempScreen(){
    temp = sendMessage("T");
    humidity = sendMessage("H");
    mvprintw(0,0,"Pressione ESC para retornar");
-   mvprintw(2,0,"Temperatura: %d Celsius",temp);
+   mvprintw(2,0,"Temperatura: %d Celsius",temp/100);
    mvprintw(3,0,"Umidade: %d%%",humidity);
    refresh();
   } while(entry != 27);

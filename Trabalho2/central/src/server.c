@@ -14,30 +14,32 @@ bool getAlarm(){
 
 void triggerAlarm(){
 	printf("WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
-	//system("omxplayer example.mp3");
+	system("omxplayer ../media/alarm.mp3");
 }
 
 void TrataClienteTCP(int socketCliente) {
 	
 	char buffer[16];
 	int tamanhoRecebido;
-
+	int res;
 	if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
 		printf("Erro no recv()\n");
-    if(buffer[0]){
+	res = buffer[0] - '0';
+    if(res){
 		if(alarme){
 			triggerAlarm();
 		}
 	}
 	while (tamanhoRecebido > 0) {
-		if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
-			printf("Erro no recv()\n");
-             if(buffer[0]){
-				if(alarme){
-					triggerAlarm();
+		if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0){
+			printf("Erro no recv()");
+			}
+		res = buffer[0] - '0';
+        if(res){
+			if(alarme){
+				triggerAlarm();
 			}
 		}
-	}
 }
 
 void *initServer(void * arg) {

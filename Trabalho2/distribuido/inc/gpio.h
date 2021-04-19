@@ -12,4 +12,6 @@ int toggleLight(int l);
 
 int toggleAC(int a);
 
+int getState(int pin);
+
 #endif
