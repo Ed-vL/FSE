@@ -40,6 +40,7 @@ void TrataClienteTCP(int socketCliente) {
 				triggerAlarm();
 			}
 		}
+	}
 }
 
 void *initServer(void * arg) {
