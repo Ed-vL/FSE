@@ -11,7 +11,7 @@ int sendMessage(char *message){
 	unsigned int tamanhoMensagem;
 	int bytesRecebidos;
 	int res;
-    tamanhoMensagem = strlen(message);-
+    tamanhoMensagem = strlen(message);
 	if(send(clientSocket, message, tamanhoMensagem, 0) != tamanhoMensagem)
 		printf("Erro no envio: numero de bytes enviados diferente do esperado\n");
 
