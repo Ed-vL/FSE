@@ -12,6 +12,6 @@ int toggleLight(int l);
 
 int toggleAC(int a);
 
-int getState(int pin);
+int getState(char code, int pin);
 
 #endif
