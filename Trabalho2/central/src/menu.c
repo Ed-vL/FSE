@@ -77,7 +77,7 @@ void menu()
 	clear();
     AlarmScreen();
 	menu();
-  case 6:
+  case 5:
     clear();
 	erase();
     endwin();
