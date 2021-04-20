@@ -200,17 +200,17 @@ void ActionScreen(){
     if(res){
         if(!A1control){
             clearLine(5);
-            mvprintw(5, 0,"Ar-Condicionado 01 acionada!");
+            mvprintw(5, 0,"Ar-Condicionado 01 acionado!");
             refresh();
             A1control = 1;
-            fprintf(t, "%d-%d-%d %d:%d:%d,Ar-Condicionado 01 acionada\n", 
+            fprintf(t, "%d-%d-%d %d:%d:%d,Ar-Condicionado 01 acionado\n", 
     			timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec);
         } else {
             clearLine(5);
-            mvprintw(5, 0,"Ar-Condicionado 01 desligada!");
+            mvprintw(5, 0,"Ar-Condicionado 01 desligado!");
             refresh();
             A1control = 0;
-            fprintf(t, "%d-%d-%d %d:%d:%d,Ar-Condicionado 01 desligada\n", 
+            fprintf(t, "%d-%d-%d %d:%d:%d,Ar-Condicionado 01 desligado\n", 
     			timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec);
         }
     } else {
@@ -225,17 +225,17 @@ void ActionScreen(){
     if(res){
         if(!A2control){
             clearLine(6);
-            mvprintw(6, 0,"Ar-Condicionado 02 acionada!");
+            mvprintw(6, 0,"Ar-Condicionado 02 acionado!");
             refresh();
             A2control = 1;
-            fprintf(t, "%d-%d-%d %d:%d:%d,Ar-Condicionado 02 acionada\n", 
+            fprintf(t, "%d-%d-%d %d:%d:%d,Ar-Condicionado 02 acionado\n", 
     			timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec);
         } else {
             clearLine(6);
             mvprintw(6, 0,"Ar-Condicionado 02 desligada!");
             refresh();
             A2control = 0;
-            fprintf(t, "%d-%d-%d %d:%d:%d,Ar-Condicionado 02\n", 
+            fprintf(t, "%d-%d-%d %d:%d:%d,Ar-Condicionado 02 desligado\n", 
     			timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec);
         }
     } else {

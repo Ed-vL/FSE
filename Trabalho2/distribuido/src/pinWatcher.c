@@ -3,7 +3,8 @@
 
 
 void p1_handler(void){
-    int state = digitalRead(6);
+    printf("Fororonk\n");
+    int state = digitalRead(P1_pin);
     if(state){
         sendMessage("1");
     } else {
@@ -12,7 +13,8 @@ void p1_handler(void){
     
 }
 void p2_handler(void){
-    int state = digitalRead(25);
+    printf("Fororonk\n");
+    int state = digitalRead(P2_pin);
     if(state){
         sendMessage("1");
     } else {
@@ -20,7 +22,8 @@ void p2_handler(void){
     }
 }
 void s1_handler(void){
-    int state = digitalRead(21);
+    printf("Fororonk\n");
+    int state = digitalRead(S1_pin);
     if(state){
         sendMessage("1");
     } else {
@@ -28,7 +31,8 @@ void s1_handler(void){
     }
 }
 void s2_handler(void){
-    int state = digitalRead(22);
+    printf("Fororonk\n");
+    int state = digitalRead(S2_pin);
     if(state){
         sendMessage("1");
     } else {
@@ -36,7 +40,8 @@ void s2_handler(void){
     }
 }
 void s3_handler(void){
-    int state = digitalRead(26);
+    printf("Fororonk\n");
+    int state = digitalRead(S3_pin);
     if(state){
         sendMessage("1");
     } else {
@@ -44,7 +49,8 @@ void s3_handler(void){
     }
 }
 void s4_handler(void){
-    int state = digitalRead(27);
+    printf("Fororonk\n");
+    int state = digitalRead(S4_pin);
     if(state){
         sendMessage("1");
     } else {
@@ -52,7 +58,8 @@ void s4_handler(void){
     }
 }
 void s5_handler(void){
-    int state = digitalRead(28);
+    printf("Fororonk\n");
+    int state = digitalRead(S5_pin);
     if(state){
         sendMessage("1");
     } else {
@@ -60,7 +67,8 @@ void s5_handler(void){
     }
 }
 void s6_handler(void){
-    int state = digitalRead(29);
+    printf("Fororonk\n");
+    int state = digitalRead(S6_pin);
     if(state){
         sendMessage("1");
     } else {
@@ -68,12 +76,12 @@ void s6_handler(void){
     }
 }
 int watcher(){
-  wiringPiISR(6,INT_EDGE_BOTH,&p1_handler);
-  wiringPiISR(25,INT_EDGE_BOTH,&p2_handler);
-  wiringPiISR(21,INT_EDGE_BOTH,&s1_handler);
-  wiringPiISR(22,INT_EDGE_BOTH,&s2_handler);
-  wiringPiISR(26,INT_EDGE_BOTH,&s3_handler);
-  wiringPiISR(27,INT_EDGE_BOTH,&s4_handler);
-  wiringPiISR(28,INT_EDGE_BOTH,&s5_handler);
-  wiringPiISR(29,INT_EDGE_BOTH,&s6_handler);
+  wiringPiISR(P1_pin,INT_EDGE_BOTH,&p1_handler);
+  wiringPiISR(P2_pin,INT_EDGE_BOTH,&p2_handler);
+  wiringPiISR(S1_pin,INT_EDGE_BOTH,&s1_handler);
+  wiringPiISR(S2_pin,INT_EDGE_BOTH,&s2_handler);
+  wiringPiISR(S3_pin,INT_EDGE_BOTH,&s3_handler);
+  wiringPiISR(S4_pin,INT_EDGE_BOTH,&s4_handler);
+  wiringPiISR(S5_pin,INT_EDGE_BOTH,&s5_handler);
+  wiringPiISR(S6_pin,INT_EDGE_BOTH,&s6_handler);
 }

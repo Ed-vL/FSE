@@ -18,8 +18,12 @@ void triggerAlarm(){
 
 FILE *t;
 void configCsv(){
-  t = fopen("Relatorio.csv", "w+");
-  fprintf(t,"Data/Hora, Evento\n");
+  if( access("Relatorio.csv", F_OK ) == 0 ) {
+    	t = fopen("Relatorio.csv", "a");
+	} else {
+    	t = fopen("Relatorio.csv", "w+");
+		fprintf(t,"Data/Hora, Evento\n");
+  }
 }
 
 void TrataClienteTCP(int socketCliente) {

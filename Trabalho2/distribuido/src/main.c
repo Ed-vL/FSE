@@ -11,7 +11,6 @@ int main(){
       printf("Erro ao inicializar BME280\n");
     }
     configGpio();
-    sleep(5);
     createClient();
     watcher();
     pause();
