@@ -10,7 +10,7 @@
 #include <pthread.h>
 #include <time.h>
 
-#define servidorPorta 3000
+#define servidorPorta 10027
 
 void TrataClienteTCP();
 

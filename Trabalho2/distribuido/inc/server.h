@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include <pthread.h>
 
-#define servidorPorta 3001
+#define servidorPorta 10127
 
 void TrataClienteTCP();
 
