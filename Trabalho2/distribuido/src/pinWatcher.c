@@ -3,7 +3,7 @@
 
 
 void p1_handler(void){
-    printf("Fororonk\n");
+    printf("Borda detectada\n");
     int state = digitalRead(P1_pin);
     if(state){
         sendMessage("1");
@@ -13,7 +13,7 @@ void p1_handler(void){
     
 }
 void p2_handler(void){
-    printf("Fororonk\n");
+    printf("Borda detectada\n");
     int state = digitalRead(P2_pin);
     if(state){
         sendMessage("1");
@@ -22,7 +22,7 @@ void p2_handler(void){
     }
 }
 void s1_handler(void){
-    printf("Fororonk\n");
+    printf("Borda detectada\n");
     int state = digitalRead(S1_pin);
     if(state){
         sendMessage("1");
@@ -31,7 +31,7 @@ void s1_handler(void){
     }
 }
 void s2_handler(void){
-    printf("Fororonk\n");
+    printf("Borda detectada\n");
     int state = digitalRead(S2_pin);
     if(state){
         sendMessage("1");
@@ -40,7 +40,7 @@ void s2_handler(void){
     }
 }
 void s3_handler(void){
-    printf("Fororonk\n");
+    printf("Borda detectada\n");
     int state = digitalRead(S3_pin);
     if(state){
         sendMessage("1");
@@ -49,7 +49,7 @@ void s3_handler(void){
     }
 }
 void s4_handler(void){
-    printf("Fororonk\n");
+    printf("Borda detectada\n");
     int state = digitalRead(S4_pin);
     if(state){
         sendMessage("1");
@@ -58,7 +58,7 @@ void s4_handler(void){
     }
 }
 void s5_handler(void){
-    printf("Fororonk\n");
+    printf("Borda detectada\n");
     int state = digitalRead(S5_pin);
     if(state){
         sendMessage("1");
@@ -67,7 +67,7 @@ void s5_handler(void){
     }
 }
 void s6_handler(void){
-    printf("Fororonk\n");
+    printf("Borda detectada\n");
     int state = digitalRead(S6_pin);
     if(state){
         sendMessage("1");
