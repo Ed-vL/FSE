@@ -3,6 +3,7 @@
 #include "../inc/gpio.h"
 #include "../inc/client.h"
 #include "../inc/pinWatcher.h"
+#include <signal.h>
 
 int main(){
     signal(SIGPIPE, SIG_IGN);

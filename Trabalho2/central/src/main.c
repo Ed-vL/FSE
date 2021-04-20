@@ -1,6 +1,6 @@
 #include "../inc/menu.h"
 #include "../inc/server.h"
-
+#include <signal.h>
  
 
 int main(void){
