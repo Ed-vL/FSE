@@ -25,6 +25,8 @@ void configCsv(){
 void TrataClienteTCP(int socketCliente) {
 	time_t rawtime;
   	struct tm * timeinfo;
+	time (&rawtime);
+    timeinfo = localtime (&rawtime);
 	char buffer[16];
 	int tamanhoRecebido;
 	int res;
@@ -39,6 +41,8 @@ void TrataClienteTCP(int socketCliente) {
 		}
 	}
 	while (tamanhoRecebido > 0) {
+		time (&rawtime);
+    	timeinfo = localtime (&rawtime);
 		if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0){
 			printf("Erro no recv()");
 			}
@@ -51,6 +55,7 @@ void TrataClienteTCP(int socketCliente) {
 			}
 		}
 	}
+	fclose(t);
 }
 
 void *initServer(void * arg) {
@@ -92,7 +97,7 @@ void *initServer(void * arg) {
 
 	}
 	close(servidorSocket);
-
+	
 }
 
 void createServer(){

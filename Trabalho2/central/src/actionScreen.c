@@ -43,6 +43,8 @@ void print_options(WINDOW *menu_win, int highlight)
 void ActionScreen(){
   time_t rawtime;
   struct tm * timeinfo;
+  time (&rawtime);
+  timeinfo = localtime (&rawtime);
   FILE *t;
   t = fopen("Relatorio.csv", "w+");
   int L1control = sendMessage("ML1\0"),L2control = sendMessage("ML2\0"), L3control = sendMessage("ML3\0");
