@@ -46,7 +46,7 @@ void ActionScreen(){
   time (&rawtime);
   timeinfo = localtime (&rawtime);
   FILE *t;
-  t = fopen("Relatorio.csv", "w+");
+  t = fopen("Relatorio.csv", "a");
   int L1control = sendMessage("ML1\0"),L2control = sendMessage("ML2\0"), L3control = sendMessage("ML3\0");
   int L4control = sendMessage("ML4\0"), A1control = sendMessage("MA1\0"), A2control = sendMessage("MA2\0");
   int startx = 0;
