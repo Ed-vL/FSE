@@ -30,8 +30,6 @@ void configCsv(){
 void TrataClienteTCP(int socketCliente) {
 	time_t rawtime;
   	struct tm * timeinfo;
-	time (&rawtime);
-    timeinfo = localtime (&rawtime);
 	char buffer[16];
 	char confirm[16];
 
@@ -48,13 +46,14 @@ void TrataClienteTCP(int socketCliente) {
     if(res){
 		if(alarme){
 			triggerAlarm();
+			time (&rawtime);
+    		timeinfo = localtime (&rawtime);
 		    fprintf(t, "%d-%d-%d %d:%d:%d,Alarme disparado\n", 
     		timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec);
 		}
 	}
 	while (tamanhoRecebido > 0) {
-		time (&rawtime);
-    	timeinfo = localtime (&rawtime);
+
 		if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0){
 			printf("Erro no recv()\n");
 			confirm[0] = 0;
@@ -66,6 +65,8 @@ void TrataClienteTCP(int socketCliente) {
         if(res){
 			if(alarme){
 				triggerAlarm();
+				time (&rawtime);
+    			timeinfo = localtime (&rawtime);
 		    	fprintf(t, "%d-%d-%d %d:%d:%d,Alarme disparado\n", 
     			timeinfo->tm_mday,timeinfo->tm_mon+1,timeinfo->tm_year+1900,timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec);
 			}
