@@ -10,7 +10,7 @@ void p1_handler(void){
     } else {
         sendMessage("0");
     }
-    
+    watcher();
 }
 void p2_handler(void){
     printf("Borda detectada\n");
@@ -20,6 +20,7 @@ void p2_handler(void){
     } else {
         sendMessage("0");
     }
+    watcher();
 }
 void s1_handler(void){
     printf("Borda detectada\n");
@@ -29,6 +30,7 @@ void s1_handler(void){
     } else {
         sendMessage("0");
     }
+    watcher();
 }
 void s2_handler(void){
     printf("Borda detectada\n");
@@ -38,6 +40,7 @@ void s2_handler(void){
     } else {
         sendMessage("0");
     }
+    watcher();
 }
 void s3_handler(void){
     printf("Borda detectada\n");
@@ -47,6 +50,7 @@ void s3_handler(void){
     } else {
         sendMessage("0");
     }
+    watcher();
 }
 void s4_handler(void){
     printf("Borda detectada\n");
@@ -56,6 +60,7 @@ void s4_handler(void){
     } else {
         sendMessage("0");
     }
+    watcher();
 }
 void s5_handler(void){
     printf("Borda detectada\n");
@@ -65,6 +70,7 @@ void s5_handler(void){
     } else {
         sendMessage("0");
     }
+    watcher();
 }
 void s6_handler(void){
     printf("Borda detectada\n");
@@ -74,6 +80,7 @@ void s6_handler(void){
     } else {
         sendMessage("0");
     }
+    watcher();
 }
 int watcher(){
   wiringPiISR(P1_pin,INT_EDGE_BOTH,&p1_handler);
