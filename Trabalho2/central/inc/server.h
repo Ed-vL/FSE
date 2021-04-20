@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <time.h>
+#include <string.h>
 
 #define servidorPorta 10027
 

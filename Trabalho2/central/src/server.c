@@ -13,7 +13,12 @@ bool getAlarm(){
 }
 
 void triggerAlarm(){
-	system("omxplayer alarm.mp3");
+	char command[1000], cwd[500];
+	strcpy(command, "aplay ");
+	getcwd(cwd, sizeof(cwd));
+	strcat(command, cwd);
+	strcat(command, "/alarm.mp3");
+	system(command);
 }
 
 FILE *t;
