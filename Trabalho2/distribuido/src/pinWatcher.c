@@ -82,7 +82,7 @@ void s6_handler(void){
     }
     watcher();
 }
-int watcher(){
+void watcher(){
   wiringPiISR(P1_pin,INT_EDGE_BOTH,&p1_handler);
   wiringPiISR(P2_pin,INT_EDGE_BOTH,&p2_handler);
   wiringPiISR(S1_pin,INT_EDGE_BOTH,&s1_handler);

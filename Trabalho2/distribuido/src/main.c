@@ -5,6 +5,7 @@
 #include "../inc/pinWatcher.h"
 
 int main(){
+    signal(SIGPIPE, SIG_IGN);
     createServer();
     int bme = bme280Init(1, 0x76);
     if(bme < 0){

@@ -15,6 +15,6 @@
 #define S5_pin 28
 #define S6_pin 29
 
-int watcher();
+void watcher();
 
 #endif
