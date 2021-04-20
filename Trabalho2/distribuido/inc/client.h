@@ -9,7 +9,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define servidorPorta 3000
+#define servidorPorta 10027
 #define IP_Servidor "192.168.0.53"
 
  
