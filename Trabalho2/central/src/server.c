@@ -17,7 +17,7 @@ void triggerAlarm(){
 	strcpy(command, "aplay ");
 	getcwd(cwd, sizeof(cwd));
 	strcat(command, cwd);
-	strcat(command, "/media/alarm.mp3 > dev/null");
+	strcat(command, "/media/alarm.mp3 > /dev/null");
 	system(command);
 }
 
