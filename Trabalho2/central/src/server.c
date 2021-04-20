@@ -32,10 +32,17 @@ void TrataClienteTCP(int socketCliente) {
 	time (&rawtime);
     timeinfo = localtime (&rawtime);
 	char buffer[16];
+	char confirm[16];
+
 	int tamanhoRecebido;
 	int res;
-	if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0)
+	if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0){
 		printf("Erro no recv()\n");
+		confirm[0] = 0;
+	} else {
+		confirm[0] = 1;
+	}
+	send(socketCliente,confirm,2,0);
 	res = buffer[0] - '0';
     if(res){
 		if(alarme){
@@ -48,8 +55,12 @@ void TrataClienteTCP(int socketCliente) {
 		time (&rawtime);
     	timeinfo = localtime (&rawtime);
 		if((tamanhoRecebido = recv(socketCliente, buffer, 16, 0)) < 0){
-			printf("Erro no recv()");
-			}
+			printf("Erro no recv()\n");
+			confirm[0] = 0;
+		} else {
+			confirm[0] = 1;
+		}
+		send(socketCliente,confirm,2,0);
 		res = buffer[0] - '0';
         if(res){
 			if(alarme){

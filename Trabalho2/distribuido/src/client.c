@@ -18,7 +18,7 @@ int sendMessage(char *message){
     if((bytesRecebidos = recv(clientSocket, buffer, 16-1, 0)) <= 0)
 		printf("Não recebeu o total de bytes enviados\n");
     
-	res = buffer[0];
+	res = buffer[0] - '0';
     return res;
 }
 
