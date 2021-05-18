@@ -21,11 +21,20 @@
 #include "mqtt.h"
 #include "cJSON.h"
 #include "flash.h"
+#include "gpio.h"
+
 
 #define TAG "MQTT"
 
 extern xSemaphoreHandle conexaoMQTTSemaphore;
 esp_mqtt_client_handle_t client;
+
+char * Pega_comodo()
+{
+    char * comodo;
+    comodo = le_string_nvs("Comodo");
+    return comodo;
+}
 
 char* Pega_macAddress()
 {
@@ -56,6 +65,14 @@ void trataMensagem(char * mensagem)
         char * comodo = cJSON_GetObjectItem(body, "Comodo")->valuestring;
         grava_string_nvs(comodo, "Comodo");
     }
+    if(!strcmp(tipoMensagem, "Remover")){
+        deletaDispositivo("Comodo","Registrador");
+    }
+    if(!strcmp(tipoMensagem, "LED")){
+        toggleLED();
+    }
+
+
 }
 
 static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)

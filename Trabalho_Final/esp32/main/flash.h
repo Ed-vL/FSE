@@ -14,4 +14,5 @@ char * le_string_nvs(char * chave);
 void grava_int_nvs(int32_t valor, char * chave);
 void grava_string_nvs(char * valor, char * chave);
 void inicia_nvs();
+void deletaDispositivo(char * chaveC, char * chaveR);
 #endif

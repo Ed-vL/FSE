@@ -12,6 +12,7 @@
 #include "http_client.h"
 #include "mqtt.h"
 #include "flash.h"
+#include "gpio.h"
 #include <unistd.h>
 
 xSemaphoreHandle conexaoWifiSemaphore;
@@ -31,6 +32,16 @@ void conectadoWifi(void * params)
   }
 }
 
+void TestGpio(void * params)
+{
+  const TickType_t xDelay = 500 / portTICK_PERIOD_MS;
+  while(true)
+  {
+    toggleLED();
+    vTaskDelay(xDelay);
+  }
+}
+
 void verificaDispositivo()
 {
   estaRegistrado = 0;
@@ -47,9 +58,11 @@ void verificaDispositivo()
 void app_main(void)
 {
     inicia_nvs();
+    initGpio();
     conexaoWifiSemaphore = xSemaphoreCreateBinary();
     conexaoMQTTSemaphore = xSemaphoreCreateBinary();
     wifi_start();
     xTaskCreate(&conectadoWifi, "Conexão ao MQTT", 4096, NULL, 1, NULL);
+    xTaskCreate(&TestGpio,"GPIO",4096,NULL,1,NULL);
     verificaDispositivo();
 }

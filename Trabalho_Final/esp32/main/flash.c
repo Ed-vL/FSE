@@ -119,3 +119,9 @@ char * le_string_nvs(char * chave)
     }
     return valor;
 }
+
+void deletaDispositivo(char * chaveC, char * chaveR)
+{
+    grava_string_nvs("",chaveC);
+    grava_int_nvs(0,chaveR);
+}
