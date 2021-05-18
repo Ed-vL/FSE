@@ -33,16 +33,6 @@ void conectadoWifi(void * params)
   }
 }
 
-void TestGpio(void * params)
-{
-  const TickType_t xDelay = 500 / portTICK_PERIOD_MS;
-  while(true)
-  {
-    toggleLED();
-    vTaskDelay(xDelay);
-  }
-}
-
 void verificaDispositivo()
 {
   estaRegistrado = 0;
@@ -52,6 +42,7 @@ void verificaDispositivo()
       mqtt_register();
       estaRegistrado = 1;
       grava_int_nvs(estaRegistrado, "Registrador");
+      xSemaphoreGive(conexaoMQTTSemaphore);
     }      
   }
 }

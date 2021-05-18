@@ -25,6 +25,7 @@
 #include "cJSON.h"
 #include "flash.h"
 
+#define MATRICULA CONFIG_MATRICULA_ID
 
 void mqtt_start();
 

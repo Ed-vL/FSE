@@ -18,3 +18,12 @@ menu "Configuração do Wifi"
         help
             Configure o valor máximo de tentativas de conexão.
 endmenu
+
+menu "Configuração do Projeto"
+
+    config MATRICULA_ID
+        string "Matricula"
+        default "170102343"
+        help
+            Matricula para topicos
+endmenu

@@ -11,7 +11,7 @@ char * Pega_topico(char * tipo)
     char * comodo;
     comodo = le_string_nvs("Comodo");
     char topico[50];
-    sprintf(topico,"fse2020/170102343/%s/%s", comodo,tipo);
+    sprintf(topico,"fse2020/%s/%s/%s", MATRICULA,comodo,tipo);
     return topico;
 }
 
@@ -113,7 +113,7 @@ void mqtt_register(){
   cJSON_AddItemToObject(monitor, "tipo", tipo);
   cJSON_AddItemToObject(monitor, "id", id);
   string = cJSON_Print(monitor);
-  sprintf(topic,"fse2020/170102343/dispositivos/%s", mac_address);
+  sprintf(topic,"fse2020/%s/dispositivos/%s", MATRICULA,mac_address);
   mqtt_envia_mensagem(topic, string);
   mqtt_subscriber(topic);
 }
