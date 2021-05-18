@@ -26,14 +26,9 @@ void trataInterrupcaoBotao(void *params)
       if(estado == 1)
       {
         gpio_isr_handler_remove(pino);
-        while(gpio_get_level(pino) == estado)
-        {
-          vTaskDelay(50 / portTICK_PERIOD_MS);
-        }
-
         contador++;
         printf("Os botões foram acionados %d vezes. Botão: %d\n", contador, pino);
-
+        sendInterrupt("Botao acionado");
         vTaskDelay(50 / portTICK_PERIOD_MS);
         gpio_isr_handler_add(pino, gpio_isr_handler, (void *) pino);
       }

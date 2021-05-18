@@ -9,7 +9,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
-
+#include "aux.h"
 
 #define str_size 40
 

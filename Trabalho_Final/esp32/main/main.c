@@ -13,6 +13,7 @@
 #include "mqtt.h"
 #include "flash.h"
 #include "gpio.h"
+#include "dht11.h"
 #include <unistd.h>
 
 xSemaphoreHandle conexaoWifiSemaphore;
@@ -59,10 +60,11 @@ void app_main(void)
 {
     inicia_nvs();
     initGpio();
+    DHT11_init(GPIO_NUM_4);
     conexaoWifiSemaphore = xSemaphoreCreateBinary();
     conexaoMQTTSemaphore = xSemaphoreCreateBinary();
     wifi_start();
     xTaskCreate(&conectadoWifi, "Conexão ao MQTT", 4096, NULL, 1, NULL);
-    xTaskCreate(&TestGpio,"GPIO",4096,NULL,1,NULL);
+    xTaskCreate(&dhtPush,"Monitoramento",4096,NULL,1,NULL);
     verificaDispositivo();
 }

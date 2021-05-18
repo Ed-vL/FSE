@@ -1,26 +1,3 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <stddef.h>
-#include <string.h>
-#include "esp_system.h"
-#include "esp_event.h"
-#include "esp_netif.h"
-
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "freertos/queue.h"
-
-#include "lwip/sockets.h"
-#include "lwip/dns.h"
-#include "lwip/netdb.h"
-
-#include "esp_log.h"
-#include "mqtt_client.h"
-
-#include "mqtt.h"
-#include "cJSON.h"
-#include "flash.h"
 #include "gpio.h"
 
 
@@ -29,11 +6,13 @@
 extern xSemaphoreHandle conexaoMQTTSemaphore;
 esp_mqtt_client_handle_t client;
 
-char * Pega_comodo()
+char * Pega_topico(char * tipo)
 {
     char * comodo;
     comodo = le_string_nvs("Comodo");
-    return comodo;
+    char topico[50];
+    sprintf(topico,"fse2020/170102343/%s/%s", comodo,tipo);
+    return topico;
 }
 
 char* Pega_macAddress()
@@ -154,3 +133,4 @@ void mqtt_envia_mensagem(char * topico, char * mensagem)
     int message_id = esp_mqtt_client_publish(client, topico, mensagem, 0, 1, 0);
     ESP_LOGI(TAG, "Mesnagem enviada, ID: %d", message_id);
 }
+
