@@ -20,6 +20,7 @@
 
 #include "mqtt.h"
 #include "cJSON.h"
+#include "flash.h"
 
 #define TAG "MQTT"
 
@@ -46,6 +47,17 @@ char* Pega_macAddress()
     return mac;
 }
 
+void trataMensagem(char * mensagem)
+{
+    cJSON *body = cJSON_Parse(mensagem);
+
+    char * tipoMensagem = cJSON_GetObjectItem(body, "Tipo")->valuestring;
+    if(!strcmp(tipoMensagem, "Registro")){
+        char * comodo = cJSON_GetObjectItem(body, "Comodo")->valuestring;
+        grava_string_nvs(comodo, "Comodo");
+    }
+}
+
 static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
 {
     esp_mqtt_client_handle_t client = event->client;
@@ -70,8 +82,7 @@ static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
             break;
         case MQTT_EVENT_DATA:
             ESP_LOGI(TAG, "MQTT_EVENT_DATA");
-            printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
-            printf("DATA=%.*s\r\n", event->data_len, event->data);
+            trataMensagem(event->data);
             break;
         case MQTT_EVENT_ERROR:
             ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
@@ -98,17 +109,17 @@ void mqtt_register(){
   char topic[50];
   char * mac_address = Pega_macAddress();
   char * string = NULL;
-  cJSON * mensagem = NULL;
+  cJSON * tipo = NULL;
   cJSON * id = NULL;
   cJSON *monitor = cJSON_CreateObject();
-  mensagem = cJSON_CreateString("Novo dispositivo");
+  tipo = cJSON_CreateString("Cadastro");
   id = cJSON_CreateString(mac_address);
-  cJSON_AddItemToObject(monitor, "mensagem", mensagem);
+  cJSON_AddItemToObject(monitor, "tipo", tipo);
   cJSON_AddItemToObject(monitor, "id", id);
   string = cJSON_Print(monitor);
   sprintf(topic,"fse2020/170102343/dispositivos/%s", mac_address);
   mqtt_envia_mensagem(topic, string);
-  esp_mqtt_client_subscribe(client, topic, 0);
+  mqtt_subscriber(topic);
 }
 
 void mqtt_start()
