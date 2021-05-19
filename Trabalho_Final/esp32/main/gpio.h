@@ -12,6 +12,8 @@
 #include "aux.h"
 
 #define str_size 40
+#define LED 2
+#define BOTAO 0
 
 void initGpio();
 static void IRAM_ATTR gpio_isr_handler(void *args);

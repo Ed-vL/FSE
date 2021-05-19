@@ -4,13 +4,15 @@
 #define TAG "MQTT"
 
 extern xSemaphoreHandle conexaoMQTTSemaphore;
+extern xSemaphoreHandle cadastro_Semaphore;
+
 esp_mqtt_client_handle_t client;
 
 char * Pega_topico(char * tipo)
 {
     char * comodo;
     comodo = le_string_nvs("Comodo");
-    char topico[50];
+    char * topico  = malloc(sizeof(char) *50);
     sprintf(topico,"fse2020/%s/%s/%s", MATRICULA,comodo,tipo);
     return topico;
 }
@@ -43,6 +45,7 @@ void trataMensagem(char * mensagem)
     if(!strcmp(tipoMensagem, "Registro")){
         char * comodo = cJSON_GetObjectItem(body, "Comodo")->valuestring;
         grava_string_nvs(comodo, "Comodo");
+        xSemaphoreGive(cadastro_Semaphore);
     }
     if(!strcmp(tipoMensagem, "Remover")){
         deletaDispositivo("Comodo","Registrador");
@@ -55,9 +58,7 @@ void trataMensagem(char * mensagem)
 }
 
 static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
-{
-    esp_mqtt_client_handle_t client = event->client;
-    
+{    
     switch (event->event_id) {
         case MQTT_EVENT_CONNECTED:
             ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");

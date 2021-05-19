@@ -26,4 +26,10 @@ menu "Configuração do Projeto"
         default "170102343"
         help
             Matricula para topicos
+    
+    config ESP_MODE_BATTERY
+        bool "ESP_MODE_BATTERY"
+        default false
+        help
+            Selecione para executar no modo bateria
 endmenu

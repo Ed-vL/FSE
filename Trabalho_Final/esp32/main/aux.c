@@ -28,14 +28,18 @@ void dhtPush(void * params)
   cJSON * monitorT = cJSON_CreateObject();
 
   char * topicoU = malloc(sizeof(char)*50);
-  topicoU = Pega_topico("umidade");
+  
 
   char * topicoT = malloc(sizeof(char)*50);
-  topicoT = Pega_topico("temperatura");
+ 
   tipo = cJSON_CreateString("Monitoramento");
   printf("Esperando MQTT\n");
   if(xSemaphoreTake(conexaoMQTTSemaphore, portMAX_DELAY)){
-    printf("Pegou MQTT\n");
+    xSemaphoreGive(conexaoMQTTSemaphore);
+    xSemaphoreTake(cadastro_Semaphore, portMAX_DELAY);
+    topicoU = Pega_topico("umidade");
+    topicoT = Pega_topico("temperatura");
+    printf("Topic: %s\n",topicoT);
     while (true)
     {
       struct dht11_reading dht = DHT11_read();

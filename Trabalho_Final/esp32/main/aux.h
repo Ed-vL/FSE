@@ -8,6 +8,7 @@
 #define freq 2000
 
 extern xSemaphoreHandle conexaoMQTTSemaphore;
+extern xSemaphoreHandle cadastro_Semaphore;
 
 void sendInterrupt(char * message);
 void dhtPush(void * params);

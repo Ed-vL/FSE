@@ -1,7 +1,6 @@
 #include "gpio.h"
 
-#define LED 2
-#define BOTAO 0
+
 
 xQueueHandle filaDeInterrupcao;
 

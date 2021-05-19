@@ -14,12 +14,18 @@
 #include "flash.h"
 #include "gpio.h"
 #include "dht11.h"
+#include "esp_sleep.h"
 #include <unistd.h>
+#include "driver/rtc_io.h"
 
 xSemaphoreHandle conexaoWifiSemaphore;
 xSemaphoreHandle conexaoMQTTSemaphore;
+xSemaphoreHandle cadastro_Semaphore;
+
+#define ESP_MODE CONFIG_ESP_MODE_BATTERY
 
 int32_t estaRegistrado;
+RTC_DATA_ATTR int Acordou = 0;
 
 void conectadoWifi(void * params)
 {
@@ -42,20 +48,42 @@ void verificaDispositivo()
       mqtt_register();
       estaRegistrado = 1;
       grava_int_nvs(estaRegistrado, "Registrador");
-      xSemaphoreGive(conexaoMQTTSemaphore);
-    }      
+    } else {
+      xSemaphoreGive(cadastro_Semaphore);   
+    }
+     xSemaphoreGive(conexaoMQTTSemaphore);   
   }
 }
 
 void app_main(void)
 {
+  int battery = 0;
+  #ifdef CONFIG_ESP_MODE_BATTERY
+      battery = 1;
+  #endif
+  if(Acordou){
+    battery = 0;
+  }
     inicia_nvs();
-    initGpio();
-    DHT11_init(GPIO_NUM_4);
+    if(!battery){
+      DHT11_init(GPIO_NUM_4);
+      initGpio();
+    }
     conexaoWifiSemaphore = xSemaphoreCreateBinary();
     conexaoMQTTSemaphore = xSemaphoreCreateBinary();
+    cadastro_Semaphore = xSemaphoreCreateBinary();
     wifi_start();
     xTaskCreate(&conectadoWifi, "Conexão ao MQTT", 4096, NULL, 1, NULL);
-    xTaskCreate(&dhtPush,"Monitoramento",4096,NULL,1,NULL);
     verificaDispositivo();
+    if(!battery)
+      xTaskCreate(&dhtPush,"Monitoramento",4096,NULL,1,NULL);
+    else {
+        rtc_gpio_pullup_en(BOTAO);
+        rtc_gpio_pulldown_dis(BOTAO);
+        esp_sleep_enable_ext0_wakeup(BOTAO, 0);
+        printf("Entrando em modo Bateria\n");
+        Acordou = 1;
+        esp_deep_sleep_start();
+    }
+
 }
