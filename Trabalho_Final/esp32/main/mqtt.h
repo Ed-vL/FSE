@@ -34,4 +34,5 @@ void mqtt_envia_mensagem(char * topico, char * mensagem);
 void mqtt_register();
 
 char * Pega_topico(char * tipo);
+void mqtt_subscriber(char * topic);
 #endif

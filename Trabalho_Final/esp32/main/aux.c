@@ -31,15 +31,17 @@ void dhtPush(void * params)
   
 
   char * topicoT = malloc(sizeof(char)*50);
+  char * topic = malloc(sizeof(char)*50);
  
   tipo = cJSON_CreateString("Monitoramento");
   printf("Esperando MQTT\n");
   if(xSemaphoreTake(conexaoMQTTSemaphore, portMAX_DELAY)){
     xSemaphoreGive(conexaoMQTTSemaphore);
     xSemaphoreTake(cadastro_Semaphore, portMAX_DELAY);
+    topic = Pega_topico("LED");
+    mqtt_subscriber(topic);
     topicoU = Pega_topico("umidade");
     topicoT = Pega_topico("temperatura");
-    printf("Topic: %s\n",topicoT);
     while (true)
     {
       struct dht11_reading dht = DHT11_read();

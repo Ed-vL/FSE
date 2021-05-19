@@ -58,6 +58,7 @@ void verificaDispositivo()
 void app_main(void)
 {
   int battery = 0;
+  char * topic = malloc(sizeof(char)*50);
   #ifdef CONFIG_ESP_MODE_BATTERY
       battery = 1;
   #endif
@@ -85,5 +86,6 @@ void app_main(void)
         Acordou = 1;
         esp_deep_sleep_start();
     }
+
 
 }
