@@ -35,4 +35,5 @@ void mqtt_register();
 
 char * Pega_topico(char * tipo);
 void mqtt_subscriber(char * topic);
+char* Pega_macAddress();
 #endif

@@ -46,8 +46,6 @@ void verificaDispositivo()
   if(xSemaphoreTake(conexaoMQTTSemaphore, portMAX_DELAY)){
     if(!estaRegistrado){
       mqtt_register();
-      estaRegistrado = 1;
-      grava_int_nvs(estaRegistrado, "Registrador");
     } else {
       xSemaphoreGive(cadastro_Semaphore);   
     }
@@ -58,7 +56,6 @@ void verificaDispositivo()
 void app_main(void)
 {
   int battery = 0;
-  char * topic = malloc(sizeof(char)*50);
   #ifdef CONFIG_ESP_MODE_BATTERY
       battery = 1;
   #endif
@@ -82,7 +79,7 @@ void app_main(void)
         rtc_gpio_pullup_en(BOTAO);
         rtc_gpio_pulldown_dis(BOTAO);
         esp_sleep_enable_ext0_wakeup(BOTAO, 0);
-        printf("Entrando em modo Bateria\n");
+        printf("Entrando em modo Bateria\nAperte o botao para cancelar\n");
         Acordou = 1;
         esp_deep_sleep_start();
     }

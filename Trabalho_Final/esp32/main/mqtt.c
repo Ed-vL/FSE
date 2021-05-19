@@ -45,12 +45,14 @@ void trataMensagem(char * mensagem)
     if(!strcmp(tipoMensagem, "Registro")){
         char * comodo = cJSON_GetObjectItem(body, "Comodo")->valuestring;
         grava_string_nvs(comodo, "Comodo");
+        int32_t estaRegistrado = 1;
+        grava_int_nvs(estaRegistrado, "Registrador");
         xSemaphoreGive(cadastro_Semaphore);
     }
     if(!strcmp(tipoMensagem, "Remover")){
         deletaDispositivo("Comodo","Registrador");
     }
-    if(!strcmp(tipoMensagem, "LED")){
+    if(!strcmp(tipoMensagem, "saida")){
         toggleLED();
     }
 
@@ -112,11 +114,12 @@ void mqtt_register(){
   tipo = cJSON_CreateString("Cadastro");
   id = cJSON_CreateString(mac_address);
   cJSON_AddItemToObject(monitor, "tipo", tipo);
-  cJSON_AddItemToObject(monitor, "id", id);
+  cJSON_AddItemToObject(monitor, "ids", id);
   string = cJSON_Print(monitor);
   sprintf(topic,"fse2020/%s/dispositivos/%s", MATRICULA,mac_address);
   mqtt_envia_mensagem(topic, string);
   mqtt_subscriber(topic);
+
 }
 
 void mqtt_start()
